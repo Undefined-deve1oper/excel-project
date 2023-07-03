@@ -26,7 +26,6 @@ export class Dom {
         this.$el.removeEventListener(eventType, callback);
     }
 
-
     append(node) {
         if (node instanceof Dom) {
             node = node.$el;
