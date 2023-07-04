@@ -21,14 +21,14 @@ export class DomListener {
             const method = getMethodName(listener);
             this.throwIfNoMethod(method);
             this[method] = this[method].bind(this);
-            this.$root.addListeners(listener, this[method]);
+            this.$root.on(listener, this[method]);
         });
     }
 
     removeDOMListeners() {
         this.listeners.forEach((listener) => {
             const method = getMethodName(listener);
-            this.$root.removeListeners(listener, this[method]);
+            this.$root.off(listener, this[method]);
         });
     }
 }

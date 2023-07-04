@@ -18,11 +18,11 @@ export class Dom {
         return this;
     }
 
-    addListeners(eventType, callback) {
+    on(eventType, callback) {
         this.$el.addEventListener(eventType, callback);
     }
 
-    removeListeners(eventType, callback) {
+    off(eventType, callback) {
         this.$el.removeEventListener(eventType, callback);
     }
 
@@ -38,6 +38,15 @@ export class Dom {
         }
 
         return this;
+    }
+
+    closest(selector) {
+        if (typeof selector !== "string") return;
+        return $(this.$el.closest(selector));
+    }
+
+    getCoords() {
+        return this.$el.getBoundingClientRect();
     }
 }
 
