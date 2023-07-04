@@ -8,15 +8,8 @@ export class Table extends ExcelComponent {
     constructor($root) {
         super($root, {
             name: "Table",
-            listeners: ["mousedown", "mousemove", "mouseup"],
+            listeners: ["mousedown"],
         });
-
-        // this.resize = {
-        //     parentNode: null,
-        //     startX: null,
-        //     startY: null,
-        //     isResizing: false,
-        // };
     }
 
     toHTML() {
@@ -32,10 +25,21 @@ export class Table extends ExcelComponent {
             document.onmousemove = (e) => {
                 const delta = e.pageX - coords.right;
                 const value = coords.width + delta;
-                $parent.$el.style.width = value + "px";
+
+                const id = $parent.$el.dataset.id;
+                const cells = document.querySelectorAll(`[data-id="${id}"]`);
+                cells.forEach((cell) => {
+                    cell.style.width = value + "px";
+                });
+                $resizer.$el.style.opacity = "1";
+                $resizer.$el.style.height = this.$root.$el.scrollHeight + "px";
             };
 
             document.onmouseup = () => {
+                $resizer.$el.style.cssText = `
+                    opacity: 0px;
+                    height: 100%;
+                `;
                 document.onmousemove = null;
             };
         }

@@ -3,15 +3,15 @@ const CODES = {
     Z: 90,
 };
 
-function toCell(cell) {
+function toCell(cell, index) {
     return `
-        <div class="cell" contenteditable>${cell}</div>
+        <div class="cell" contenteditable data-id="${index}">${cell}</div>
     `;
 }
 
-function toColumn(col) {
+function toColumn(col, index) {
     return `
-        <div class="column" data-type="resizable">
+        <div class="column" data-type="resizable" data-id="${index}">
             ${col}
             <div class="col-resize" data-resize="col"></div>
         </div>
