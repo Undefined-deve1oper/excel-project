@@ -5,6 +5,10 @@ export class Dom {
             : selector;
     }
 
+    get data() {
+        return this.$el.dataset;
+    }
+
     html(html) {
         if (typeof html === "string") {
             this.$el.innerHTML = html;
@@ -18,14 +22,13 @@ export class Dom {
         return this;
     }
 
-    addListeners(eventType, callback) {
+    on(eventType, callback) {
         this.$el.addEventListener(eventType, callback);
     }
 
-    removeListeners(eventType, callback) {
+    off(eventType, callback) {
         this.$el.removeEventListener(eventType, callback);
     }
-
 
     append(node) {
         if (node instanceof Dom) {
@@ -39,6 +42,27 @@ export class Dom {
         }
 
         return this;
+    }
+
+    closest(selector) {
+        if (typeof selector !== "string") return;
+        return $(this.$el.closest(selector));
+    }
+
+    getCoords() {
+        return this.$el.getBoundingClientRect();
+    }
+
+    findAll(selector) {
+        return this.$el.querySelectorAll(selector);
+    }
+
+    css(styles = {}) {
+        Object.keys(styles).forEach((key) => {
+            this.$el.style[key] = styles[key];
+        });
+
+        return this.$el;
     }
 }
 

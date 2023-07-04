@@ -19,5 +19,6 @@ module.exports = {
         "object-curly-spacing": ["error", "always"],
         "operator-linebreak": "off",
         "space-in-parens": ["error", "never"],
+        "max-len": ["error", { "code": 120 }],
     },
 };
