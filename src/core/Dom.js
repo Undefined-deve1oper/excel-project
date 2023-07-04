@@ -5,6 +5,10 @@ export class Dom {
             : selector;
     }
 
+    get data() {
+        return this.$el.dataset;
+    }
+
     html(html) {
         if (typeof html === "string") {
             this.$el.innerHTML = html;
@@ -47,6 +51,10 @@ export class Dom {
 
     getCoords() {
         return this.$el.getBoundingClientRect();
+    }
+
+    findAll(selector) {
+        return this.$el.querySelectorAll(selector);
     }
 }
 

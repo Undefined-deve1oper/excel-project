@@ -22,24 +22,16 @@ export class Table extends ExcelComponent {
             const $parent = $resizer.closest("[data-type=\"resizable\"]");
             const coords = $parent.getCoords();
 
+            const elements = this.$root.findAll(`[data-col="${$parent.data.col}"]`);
+
             document.onmousemove = (e) => {
                 const delta = e.pageX - coords.right;
                 const value = coords.width + delta;
 
-                const id = $parent.$el.dataset.id;
-                const cells = document.querySelectorAll(`[data-id="${id}"]`);
-                cells.forEach((cell) => {
-                    cell.style.width = value + "px";
-                });
-                $resizer.$el.style.opacity = "1";
-                $resizer.$el.style.height = this.$root.$el.scrollHeight + "px";
+                elements.forEach((el) => el.style.width = value + "px");
             };
 
             document.onmouseup = () => {
-                $resizer.$el.style.cssText = `
-                    opacity: 0px;
-                    height: 100%;
-                `;
                 document.onmousemove = null;
             };
         }

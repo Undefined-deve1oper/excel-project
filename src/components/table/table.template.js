@@ -5,13 +5,13 @@ const CODES = {
 
 function toCell(cell, index) {
     return `
-        <div class="cell" contenteditable data-id="${index}">${cell}</div>
+        <div class="cell" contenteditable data-col="${index}">${cell}</div>
     `;
 }
 
 function toColumn(col, index) {
     return `
-        <div class="column" data-type="resizable" data-id="${index}">
+        <div class="column" data-type="resizable" data-col="${index}">
             ${col}
             <div class="col-resize" data-resize="col"></div>
         </div>
