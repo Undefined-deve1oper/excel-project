@@ -4,6 +4,10 @@ export class TableSelection {
     }
 
     select($el) {
+        this.group.forEach(($el) => {
+            $el.removeClass("selected");
+        });
+
         this.group.push($el);
         $el.addClass("selected");
     }

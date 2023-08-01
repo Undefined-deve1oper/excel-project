@@ -9,7 +9,7 @@ export class Table extends ExcelComponent {
 
     constructor($root) {
         super($root, {
-            listeners: ["mousedown"],
+            listeners: ["mousedown", "click"],
         });
     }
 
@@ -31,6 +31,14 @@ export class Table extends ExcelComponent {
     onMousedown(event) {
         if (shouldResize(event)) {
             resizeHandler(this.$root, event);
+        }
+    }
+
+    onClick(event) {
+        const dataId = event.target.dataset.id;
+        if (dataId) {
+            const $cell = this.$root.find(`[data-id='${dataId}']`);
+            this.selection.select($cell);
         }
     }
 }
