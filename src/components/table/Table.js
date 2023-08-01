@@ -1,15 +1,16 @@
 import { ExcelComponent } from "@core/ExcelComponent";
 import { createTable } from "@/components/table/table.template";
 import { resizeHandler } from "@/components/table/table.resize";
-import { shouldResize } from "@/components/table/table.functions";
+import { isCell, shouldResize } from "@/components/table/table.functions";
 import { TableSelection } from "@/components/table/TableSelection";
+import { $ } from "@core/Dom";
 
 export class Table extends ExcelComponent {
     static className = "excel__table";
 
     constructor($root) {
         super($root, {
-            listeners: ["mousedown", "click"],
+            listeners: ["mousedown"],
         });
     }
 
@@ -31,14 +32,9 @@ export class Table extends ExcelComponent {
     onMousedown(event) {
         if (shouldResize(event)) {
             resizeHandler(this.$root, event);
-        }
-    }
-
-    onClick(event) {
-        const dataId = event.target.dataset.id;
-        if (dataId) {
-            const $cell = this.$root.find(`[data-id='${dataId}']`);
-            this.selection.select($cell);
+        } else if (isCell(event)) {
+            const $target = $(event.target);
+            this.selection.select($target);
         }
     }
 }
