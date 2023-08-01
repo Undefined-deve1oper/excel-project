@@ -20,5 +20,6 @@ module.exports = {
         "operator-linebreak": "off",
         "space-in-parens": ["error", "never"],
         "max-len": ["error", { "code": 120 }],
+        "indent": ["error", 4, { "SwitchCase": 1 }],
     },
 };
