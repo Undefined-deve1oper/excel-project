@@ -14,7 +14,6 @@ module.exports = {
     rules: {
         "quotes": ["error", "double"],
         "semi": ["error", "always"],
-        "indent": ["error", 4],
         "require-jsdoc": 0,
         "object-curly-spacing": ["error", "always"],
         "operator-linebreak": "off",
