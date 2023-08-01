@@ -7,6 +7,26 @@
 @import "table";
 @import "dashboard";
 
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+::-webkit-scrollbar-thumb:start {
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -16,6 +36,7 @@
 body {
   font-family: 'Roboto', sans-serif;
   font-size: 12px;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .excel {
