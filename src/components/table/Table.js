@@ -1,7 +1,7 @@
 import { ExcelComponent } from "@core/ExcelComponent";
 import { createTable } from "@/components/table/table.template";
 import { resizeHandler } from "@/components/table/table.resize";
-import { isCell, isMultiplySelection, matrix, shouldResize } from "@/components/table/table.functions";
+import { isCell, isMultiplySelection, matrix, nextSelector, shouldResize } from "@/components/table/table.functions";
 import { TableSelection } from "@/components/table/TableSelection";
 import { $ } from "@core/Dom";
 
@@ -45,6 +45,14 @@ export class Table extends ExcelComponent {
     }
 
     onKeydown(event) {
+        const keys = ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Tab", "Enter"];
+        const { key } = event;
 
+        if (keys.includes(key) && !event.shiftKey) {
+            event.preventDefault();
+            const id = this.selection.current.id(true);
+            const $next = this.$root.find(nextSelector(key, id));
+            this.selection.select($next);
+        }
     }
 }
