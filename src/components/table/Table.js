@@ -18,7 +18,7 @@ export class Table extends ExcelComponent {
     }
 
     toHTML() {
-        return createTable(30);
+        return createTable(30, this.store.getState());
     }
 
     prepare() {
@@ -27,13 +27,6 @@ export class Table extends ExcelComponent {
 
     init() {
         super.init();
-
-        const { colState } = this.$getState();
-
-        Object.keys(colState).forEach((col) => {
-            const $el = this.$root.findAll(`[data-col="${col}"]`);
-            $el.forEach((el) => el.style.width = colState[col] + "px");
-        });
 
         this.selectCell(this.$root.find("[data-id='0:0']"));
 

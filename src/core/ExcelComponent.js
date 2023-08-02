@@ -39,10 +39,6 @@ export class ExcelComponent extends DomListener {
         this.storeSub = this.store.subscribe(fn);
     }
 
-    $getState() {
-        return this.store.getState();
-    }
-
     // Инициализируем компонент
     // Добавляем DOM слушателей
     init() {
