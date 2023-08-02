@@ -34,15 +34,18 @@ export class Store {
     subscribe(fn) {
         this.#listeners.push(fn);
         return {
-            unsubscribe() {
+            unsubscribe: () => {
                 this.#listeners = this.#listeners.filter((listener) => listener !== fn);
             },
         };
     }
 
     dispatch(action) {
-        this.#state = this.rootReducer(this.#state, action);
-        this.#listeners.forEach((listener) => listener(this.#state));
+        const newState = this.rootReducer(this.#state, action);
+        if (newState !== this.#state) {
+            this.#state = newState;
+            this.#listeners.forEach((listener) => listener(this.#state));
+        }
     }
 
     getState() {
