@@ -80,6 +80,13 @@ export class Dom {
         return this.$el;
     }
 
+    getStyles(styles = []) {
+        return styles.reduce((res, s) => {
+            res[s] = this.$el.style[s];
+            return res;
+        }, {});
+    }
+
     addClass(className) {
         return this.$el.classList.add(className);
     }

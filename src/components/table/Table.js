@@ -3,6 +3,7 @@ import { createTable } from "@/components/table/table.template";
 import { resizeHandler } from "@/components/table/table.resize";
 import { isCell, isMultiplySelection, matrix, nextSelector, shouldResize } from "@/components/table/table.functions";
 import { TableSelection } from "@/components/table/TableSelection";
+import { defaultStyles } from "@/constants";
 import * as actions from "@/redux/actions";
 import { $ } from "@core/Dom";
 
@@ -37,11 +38,16 @@ export class Table extends ExcelComponent {
         this.$on("formula:done", () => {
             this.selection.current.focus();
         });
+        this.$on("toolbar:applyStyle", (style) => {
+            this.selection.applyStyle(style);
+        });
     }
 
     selectCell($cell) {
         this.selection.select($cell);
         this.$emit("table:select", $cell);
+        const styles = $cell.getStyles(Object.keys(defaultStyles));
+        this.$dispatch(actions.changeStyles(styles));
     }
 
     async resizeTable(event) {
