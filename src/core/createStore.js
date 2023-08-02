@@ -21,34 +21,36 @@ export function createStore(rootReducer, initialState = {}) {
     };
 }
 
-export class Store {
-    #state;
-    #listeners;
+// Версия написанная классом
 
-    constructor(rootReducer, initialState = {}) {
-        this.#state = rootReducer({ ...initialState }, { type: "__INIT__" });
-        this.#listeners = [];
-        this.rootReducer = rootReducer;
-    }
-
-    subscribe(fn) {
-        this.#listeners.push(fn);
-        return {
-            unsubscribe: () => {
-                this.#listeners = this.#listeners.filter((listener) => listener !== fn);
-            },
-        };
-    }
-
-    dispatch(action) {
-        const newState = this.rootReducer(this.#state, action);
-        if (newState !== this.#state) {
-            this.#state = newState;
-            this.#listeners.forEach((listener) => listener(this.#state));
-        }
-    }
-
-    getState() {
-        return this.#state;
-    }
-}
+// export class Store {
+//     #state;
+//     #listeners;
+//
+//     constructor(rootReducer, initialState = {}) {
+//         this.#state = rootReducer({ ...initialState }, { type: "__INIT__" });
+//         this.#listeners = [];
+//         this.rootReducer = rootReducer;
+//     }
+//
+//     subscribe(fn) {
+//         this.#listeners.push(fn);
+//         return {
+//             unsubscribe: () => {
+//                 this.#listeners = this.#listeners.filter((listener) => listener !== fn);
+//             },
+//         };
+//     }
+//
+//     dispatch(action) {
+//         const newState = this.rootReducer(this.#state, action);
+//         if (newState !== this.#state) {
+//             this.#state = newState;
+//             this.#listeners.forEach((listener) => listener(this.#state));
+//         }
+//     }
+//
+//     getState() {
+//         return this.#state;
+//     }
+// }

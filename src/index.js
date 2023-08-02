@@ -3,11 +3,17 @@ import { Formula } from "@/components/formula/Formula";
 import { Header } from "@/components/header/Header";
 import { Table } from "@/components/table/Table";
 import { Toolbar } from "@/components/toolbar/Toolbar";
-import { Store } from "@core/createStore";
+import { createStore } from "@core/createStore";
 import { rootReducer } from "@/redux/rootReducer";
 import "./scss/index.scss";
 
-const store = new Store(rootReducer);
+const store = createStore(rootReducer, {
+    colState: {},
+});
+
+store.subscribe((state) => {
+    console.log("App State: ", state);
+});
 
 const excel = new Excel("#app", {
     components: [Header, Toolbar, Formula, Table],
