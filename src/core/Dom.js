@@ -18,7 +18,7 @@ export class Dom {
     }
 
     text(text) {
-        if (typeof text === "string") {
+        if (typeof text !== "undefined") {
             this.$el.textContent = text;
             return this;
         }
@@ -88,11 +88,13 @@ export class Dom {
     }
 
     addClass(className) {
-        return this.$el.classList.add(className);
+        this.$el.classList.add(className);
+        return this;
     }
 
     removeClass(className) {
-        return this.$el.classList.remove(className);
+        this.$el.classList.remove(className);
+        return this;
     }
 
     id(parse) {
@@ -109,6 +111,14 @@ export class Dom {
     focus() {
         this.$el.focus();
         return this;
+    }
+
+    attr(name, value) {
+        if (value !== undefined) {
+            this.$el.setAttribute(name, value);
+            return this;
+        }
+        return this.$el.getAttribute(name);
     }
 }
 
