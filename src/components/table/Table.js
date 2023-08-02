@@ -28,6 +28,13 @@ export class Table extends ExcelComponent {
     init() {
         super.init();
 
+        const { colState } = this.$getState();
+
+        Object.keys(colState).forEach((col) => {
+            const $el = this.$root.findAll(`[data-col="${col}"]`);
+            $el.forEach((el) => el.style.width = colState[col] + "px");
+        });
+
         this.selectCell(this.$root.find("[data-id='0:0']"));
 
         this.$on("formula:input", (text) => {
