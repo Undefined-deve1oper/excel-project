@@ -1,5 +1,4 @@
-import { defaultStyles } from "@/constants";
-import { camelToDashCase } from "@core/utils";
+import { toInlineStyles } from "@core/utils";
 
 const CODES = {
     A: 65,
@@ -12,6 +11,7 @@ const DEFAULT_HEIGHT = 24;
 function getWidth(state, index) {
     return (state[index] || DEFAULT_WIDTH) + "px";
 }
+
 function getHeight(state, index) {
     return (state[index] || DEFAULT_HEIGHT) + "px";
 }
@@ -19,22 +19,20 @@ function getHeight(state, index) {
 function toCell(state, row) {
     return function(_, col) {
         const width = getWidth(state.colState, col);
-        const id = `${row}:${col}`;
+        const id = `${ row }:${ col }`;
         const data = state.dataState[id];
-        const styles = Object.keys(defaultStyles)
-            .map((key) => `${camelToDashCase(key)}: ${defaultStyles[key]}`)
-            .join(";");
+        const styles = toInlineStyles(state.stylesState[id]);
 
         return `
             <div 
                 class="cell"
                 contenteditable 
-                data-col="${col}"
+                data-col="${ col }"
                 data-type="cell"
-                data-id="${id}"
-                style="${styles}; width: ${width}"
+                data-id="${ id }"
+                style="${ styles }; width: ${ width }"
             >
-                ${data || ""}
+                ${ data || "" }
             </div>
         `;
     };
@@ -42,8 +40,8 @@ function toCell(state, row) {
 
 function toColumn({ col, index, width }) {
     return `
-        <div class="column" data-type="resizable" data-col="${index}" style="width: ${width}">
-            ${col}
+        <div class="column" data-type="resizable" data-col="${ index }" style="width: ${ width }">
+            ${ col }
             <div class="col-resize" data-resize="col"></div>
         </div>
     `;
@@ -57,14 +55,14 @@ function createRow(index, content, state) {
         <div 
             class="row" 
             data-type="resizable" 
-            data-row="${index}"
-            style="height: ${height}"
+            data-row="${ index }"
+            style="height: ${ height }"
         >
             <div class="row-info">
-                ${index ? index : ""}
-                ${resize}
+                ${ index ? index : "" }
+                ${ resize }
             </div>
-            <div class="row-data">${content}</div>
+            <div class="row-data">${ content }</div>
         </div>
     `;
 }
