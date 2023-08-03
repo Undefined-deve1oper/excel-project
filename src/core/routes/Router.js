@@ -10,6 +10,8 @@ export class Router {
         this.$placeholder = $(selector);
         this.routes = routes;
 
+        this.page = null;
+
         this.changePageHandler = this.changePageHandler.bind(this);
 
         this.init();
@@ -21,18 +23,20 @@ export class Router {
     }
 
     changePageHandler() {
-        const selectedPath= ActiveRoute.path || "";
-        const PageComponent = this.routes[selectedPath];
-
-        if (!PageComponent) {
-            throw new Error(`Selected path "${selectedPath}" is undefined!!!`);
+        if (this.page) {
+            this.page.destroy();
         }
 
-        const page = new PageComponent();
-        this.$placeholder.html("");
-        this.$placeholder.append(page.getRoot());
+        this.$placeholder.clear();
 
-        page.afterRender();
+        const Page = ActiveRoute.path.includes("excel")
+            ? this.routes.excel
+            : this.routes.dashboard;
+
+        this.page = new Page(ActiveRoute.param);
+        this.$placeholder.append(this.page.getRoot());
+
+        this.page.afterRender();
     }
 
     destroy() {
