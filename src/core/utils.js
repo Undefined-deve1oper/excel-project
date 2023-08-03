@@ -51,3 +51,6 @@ export function debounce(fn, wait) {
     };
 }
 
+export function preventDefault(event) {
+    event.preventDefault();
+}
