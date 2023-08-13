@@ -14,7 +14,7 @@ export class DashboardPage extends Page {
             <div class="db__new">
                 <div class="db__view">
                     <a href="#excel/${now}" class="db__create">
-                        Новая <br /> Таблица
+                        <i class="material-icons">add</i>
                     </a>
                 </div>
             </div>

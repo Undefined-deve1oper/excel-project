@@ -32,10 +32,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1.5rem;
     text-decoration: none;
     color: #000;
     text-align: center;
+
+    & i {
+      font-size: 3.0rem;
+    }
 
     &:hover {
       cursor: pointer;
